@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}ทดลองการวิเคราะห์ความรู้สึกจากข้อความ{% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
+"></script>
+<script>
+
+    function sentimentText(text) {
+        if (text == 'pos') {
+            return "POSITIVE (ด้านบวก)";
+        }
+        else if (text == 'neu') {
+            return "NEUTRAL (เป็นกลาง)";
+        }
+        else {
+            return "NEGATIVE (ด้านลบ)";
+        }
+    }
+
+    $(document).ready(() => {
+        $('form').on('submit', (event) => {
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: { text: $('#text').val() },
+                beforeSend: function () {
+                    $.LoadingOverlay('show', {
+                        background: 'rgba(200,200,200,0.6)',
+                        textResizeFactor: 0.15
+                    });
+                    // alert("WAIT..")
+                },
+                success: function (data) {
+                    sentiment = sentimentText(data['predicted_value'][0]['sentiment']);
+                    text = data['predicted_value'][0]['text'];
+                    topic = data['predicted_value'][0]['topic']['name'];
+                    Swal.fire(
+                        'วิเคราะห์สำเร็จ',
+                        text + "<br>" + sentiment + "<br>" + topic,
+                        'success'
+                    )
+                },
+                complete: () => {
+                    $.LoadingOverlay('hide')
+                }
+            })
+
+            event.preventDefault();
+        });
+        return false;
+    });
+</script>
+<div class=" vertical-center">
+    <div class="container">
+
+        <form action="POST">
+            <div class="row">
+                <div class="col-md-1 text-end">ข้อความ : </div>
+                <div class="col-md-9 text-dark">
+                    <input type="text" id="text" class="form-control"
+                        placeholder="ใส่ข้อมูลลงในกล่องข้อความนี้">
+                    </div>
+                <div class="col-md-2"><input type="submit" name="" id="" class="btn btn-outline-light" value="วิเคราะห์"></div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<style>
+    .vertical-center {
+        min-height: 100%;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+    }
+</style>
+{% endblock %}

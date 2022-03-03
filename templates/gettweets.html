@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}ทดลองการวิเคราะห์ความรู้สึกจากข้อความ{% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
+"></script>
+<script>
+
+    $(document).ready(() => {
+        $('form').on('submit', (event) => {
+            $.ajax({
+                type: 'POST',
+                url: '/tweet/predict',
+                data: { tag: $('#text').val() },
+                beforeSend: function () {
+                    $.LoadingOverlay('show', {
+                        background: 'rgba(200,200,200,0.6)',
+                        textResizeFactor: 0.15,
+                    });
+                },
+                success: function (data) {
+                    Swal.fire(
+                        'สำเร็จ',
+                        "ดึงทวีตสำเร็จ โปรดตรวจสอบที่ฐานข้อมูลค่ะ",
+                        'success'
+                    )
+                },
+                complete: () => {
+                    $.LoadingOverlay('hide')
+                }
+            })
+
+            event.preventDefault();
+        });
+        return false;
+    });
+</script>
+<div class=" vertical-center">
+    <div class="container">
+        <form action="POST">
+            <div class="row">
+                <div class="col-md-2 text-end">แฮชแท็กทวีต : </div>
+                <div class="col-md-8 text-dark">
+                    <input type="text" id="text" class="form-control"
+                        placeholder="ไม่ต้องใส่ # นำหน้า">
+                    </div>
+                <div class="col-md-2"><input type="submit" name="" id="" class="btn btn-outline-light" value="ดึงข้อมูลทวีต"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .vertical-center {
+        min-height: 100%;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+    }
+</style>
+{% endblock %}

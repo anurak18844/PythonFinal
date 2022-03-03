@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}| NVC Tweets Analytics</title>
-
+    <title>{% block title %}{% endblock %} | NVC Tweets Analytics</title>
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -59,11 +61,11 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="/" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li> 
+                <!-- <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">TEST SENTIMENT</a>
+                </li>  -->
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -71,10 +73,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/" class="brand-link">
                 <img src="{{ url_for("static", filename="dist/img/AdminLTELogo.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">NVC ANALYSTICS</span>
             </a>
 
             <!-- Sidebar -->
@@ -85,7 +87,7 @@
                         <img src="{{ url_for("static", filename="dist/img/user2-160x160.jpg") }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">NVC Admin</a>
+                        <a href="#" class="d-block">Anurak Si.</a>
                     </div>
                 </div>
 
@@ -99,7 +101,7 @@
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    MENU
+                                    เมนู
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -107,13 +109,19 @@
                                 <li class="nav-item">
                                     <a href="/" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard Analysis</p>
+                                        <p>กระดานสรุปข้อมูล</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url_for('testsentiment') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Get Tweets</p>
+                                        <p>ทดสอบโมเดล</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url_for('gettweets') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>ดึงข้อมูลทวีต</p>
                                     </a>
                                 </li>
                             </ul>
@@ -132,6 +140,8 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-12">
+                            <h1 class="m-0">{% block hashtag %}{% endblock %}
+                            </h1>
                             <h1 class="m-0">{% block pagename %}{% endblock %}
                             </h1>
                         </div><!-- /.col -->
