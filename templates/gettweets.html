@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}ทดลองการวิเคราะห์ความรู้สึกจากข้อความ{% endblock %}
+{% block title %}ดึงข้อมูลจากทวีต{% endblock %}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
 "></script>
@@ -38,12 +38,12 @@
     <div class="container">
         <form action="POST">
             <div class="row">
-                <div class="col-md-2 text-end">แฮชแท็กทวีต : </div>
-                <div class="col-md-8 text-dark">
+                <div class="col-md-2 text-end col-sm-12 mt-2">แฮชแท็กทวีต : </div>
+                <div class="col-md-8 text-dark col-sm-12 mt-2">
                     <input type="text" id="text" class="form-control"
                         placeholder="ไม่ต้องใส่ # นำหน้า">
                     </div>
-                <div class="col-md-2"><input type="submit" name="" id="" class="btn btn-outline-light" value="ดึงข้อมูลทวีต"></div>
+                <div class="col-md-2 col-sm-12 mt-2"><input type="submit" name="" id="" class="btn btn-outline-light container-fluid" value="ดึงข้อมูลทวีต"></div>
             </div>
         </form>
     </div>
